@@ -77,6 +77,14 @@ class ToDoListView(restful.Resource):
         db.session.commit()
         return ToDoSerializer(todo).data, 201
 
+    def delete(self):
+        toDelete = ToDo.query.filter(ToDo.is_complete == True).all()
+        for todo in toDelete:
+            db.session.delete(todo)
+        db.session.commit()
+        todos = ToDo.query.all()
+        return ToDoSerializer(todos, many=True).data, 201
+
 
 class ToDoView(restful.Resource):
     def get(self, id):
