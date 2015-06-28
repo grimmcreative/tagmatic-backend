@@ -3,7 +3,7 @@ from flask.ext import restful
 
 from app.server import api, db, flask_bcrypt, auth
 from app.models import User, Post, ToDo
-from app.forms import UserCreateForm, SessionCreateForm, PostCreateForm, ToDoCreateForm
+from app.forms import UserCreateForm, SessionCreateForm, PostCreateForm, ToDoCreateForm, ToDoCompleteForm
 from app.serializers import UserSerializer, PostSerializer, ToDoSerializer
 
 
@@ -85,7 +85,7 @@ class ToDoView(restful.Resource):
 
     @auth.login_required
     def put(self, id):
-        form = ToDoCreateForm()
+        form = ToDoCompleteForm()
         if not form.validate_on_submit():
             return form.errors, 422
         todo = ToDo.query.filter_by(id=id).first()

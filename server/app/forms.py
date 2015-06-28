@@ -1,7 +1,7 @@
 from flask.ext.wtf import Form
 
 from wtforms_alchemy import model_form_factory
-from wtforms import StringField
+from wtforms import StringField, BooleanField
 from wtforms.validators import DataRequired
 
 from app.server import db
@@ -30,7 +30,12 @@ class PostCreateForm(ModelForm):
     class Meta:
         model = Post
 
+
 class ToDoCreateForm(ModelForm):
     class Meta:
         model = ToDo
 
+
+class ToDoCompleteForm(Form):
+    text = StringField('text')
+    is_complete = BooleanField('is_complete')

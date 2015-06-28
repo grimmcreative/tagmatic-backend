@@ -38,7 +38,7 @@ class Post(db.Model):
 class ToDo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     text = db.Column(db.Text, nullable=False)
-    is_complete = db.Column(db.Boolean, nullable=True, default=False)
+    is_complete = db.Column(db.Boolean, nullable=False, default=False)
     created_at = db.Column(db.DateTime, default=db.func.now())
 
     def __init__(self, text, is_complete):
