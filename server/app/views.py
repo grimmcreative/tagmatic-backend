@@ -83,6 +83,17 @@ class ToDoView(restful.Resource):
         todos = ToDo.query.filter_by(id=id).first()
         return ToDoSerializer(todos).data
 
+    @auth.login_required
+    def put(self, id):
+        form = ToDoCreateForm()
+        if not form.validate_on_submit():
+            return form.errors, 422
+        todo = ToDo.query.filter_by(id=id).first()
+        todo.is_complete = form.is_complete.data
+        db.session.commit()
+        return ToDoSerializer(todo).data, 201
+
+
 api.add_resource(UserView, '/api/v1/users')
 api.add_resource(SessionView, '/api/v1/sessions')
 api.add_resource(PostListView, '/api/v1/posts')

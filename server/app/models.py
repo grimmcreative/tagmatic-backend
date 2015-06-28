@@ -41,8 +41,9 @@ class ToDo(db.Model):
     is_complete = db.Column(db.Boolean, nullable=True, default=False)
     created_at = db.Column(db.DateTime, default=db.func.now())
 
-    def __init__(self, text):
+    def __init__(self, text, is_complete):
         self.text = text
+        self.is_complete = is_complete
 
     def __repr__(self):
         return '<ToDo %r>' % self.text
