@@ -72,7 +72,7 @@ class ToDoListView(restful.Resource):
         form = ToDoCreateForm()
         if not form.validate_on_submit():
             return form.errors, 422
-        todo = ToDo(form.text.data)
+        todo = ToDo(form.text.data, form.is_complete.data)
         db.session.add(todo)
         db.session.commit()
         return ToDoSerializer(todo).data, 201
