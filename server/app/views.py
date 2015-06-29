@@ -67,12 +67,11 @@ class ToDoListView(restful.Resource):
         todos = ToDo.query.all()
         return ToDoSerializer(todos, many=True).data
 
-    @auth.login_required
     def post(self):
         form = ToDoCreateForm()
         if not form.validate_on_submit():
             return form.errors, 422
-        todo = ToDo(form.text.data, form.is_complete.data)
+        todo = ToDo(form.text.data, form.is_complete.data, 'Active')
         db.session.add(todo)
         db.session.commit()
         return ToDoSerializer(todo).data, 201
@@ -91,13 +90,16 @@ class ToDoView(restful.Resource):
         todos = ToDo.query.filter_by(id=id).first()
         return ToDoSerializer(todos).data
 
-    @auth.login_required
     def put(self, id):
         form = ToDoCompleteForm()
         if not form.validate_on_submit():
             return form.errors, 422
         todo = ToDo.query.filter_by(id=id).first()
         todo.is_complete = form.is_complete.data
+        if todo.is_complete:
+            todo.status = 'Completed'
+        else:
+            todo.status = 'Active'
         db.session.commit()
         return ToDoSerializer(todo).data, 201
 

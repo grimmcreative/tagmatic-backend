@@ -12,7 +12,7 @@ class PostSerializer(Serializer):
     class Meta:
         fields = ("id", "title", "body", "user", "created_at")
 
-class ToDoSerializer(Serializer):
 
+class ToDoSerializer(Serializer):
     class Meta:
-        fields = ("id", "text", "is_complete", "created_at")
+        fields = ("id", "text", "is_complete", "created_at", "status")

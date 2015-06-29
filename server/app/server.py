@@ -6,7 +6,7 @@ from flask.ext.restful import reqparse, Api
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.bcrypt import Bcrypt
 from flask.ext.httpauth import HTTPBasicAuth
- 
+
 basedir = os.path.join(os.path.abspath(os.path.dirname(__file__)), '../')
  
 app = Flask(__name__)
