@@ -5,7 +5,7 @@ from wtforms import StringField, BooleanField
 from wtforms.validators import DataRequired
 
 from app.server import db
-from app.models import User, Post, ToDo
+from app.models import User, Post, ToDo, Contact
 
 BaseModelForm = model_form_factory(Form)
 
@@ -39,3 +39,8 @@ class ToDoCreateForm(ModelForm):
 class ToDoCompleteForm(Form):
     text = StringField('text')
     is_complete = BooleanField('is_complete')
+
+
+class ContactCreateForm(ModelForm):
+    class Meta:
+        model = Contact
