@@ -49,3 +49,21 @@ class ToDo(db.Model):
 
     def __repr__(self):
         return '<ToDo %r>' % self.text
+
+
+class Contact(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    first_name = db.Column(db.String(120), nullable=False)
+    last_name = db.Column(db.String(120), nullable=False)
+    text = db.Column(db.Text, nullable=False)
+    icon_url = db.Column(db.String(120), nullable=True)
+    created_at = db.Column(db.DateTime, default=db.func.now())
+
+    def __init__(self, text, first_name, last_name):
+        self.text = text
+        self.first_name = first_name
+        self.last_name = last_name
+
+    def __repr__(self):
+        return '<ToDo %r>' % self.text
+
