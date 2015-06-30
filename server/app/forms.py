@@ -48,3 +48,10 @@ class ContactCreateForm(ModelForm):
 
 class ContactSelectForm(Form):
     is_selected = BooleanField('is_selected')
+
+
+class ContactUpdateForm(Form):
+    first_name = StringField('first_name')
+    last_name = StringField('last_name')
+    text = StringField('text')
+

@@ -3,7 +3,7 @@ from flask.ext import restful
 
 from app.server import api, db, flask_bcrypt, auth
 from app.models import User, Post, ToDo, Contact
-from app.forms import UserCreateForm, SessionCreateForm, PostCreateForm, ToDoCreateForm, ToDoCompleteForm, ContactCreateForm, ContactSelectForm
+from app.forms import UserCreateForm, SessionCreateForm, PostCreateForm, ToDoCreateForm, ToDoCompleteForm, ContactCreateForm, ContactSelectForm, ContactUpdateForm
 from app.serializers import UserSerializer, PostSerializer, ToDoSerializer, ContactSerializer
 
 
@@ -133,13 +133,15 @@ class ContactView(restful.Resource):
         return ContactSerializer(contacts).data
 
     def put(self, id):
-        form = ContactSelectForm()
+        form = ContactUpdateForm()
         if not form.validate_on_submit():
             return form.errors, 422
         contact = Contact.query.filter_by(id=id).first()
-        contact.is_selected = form.is_selected.data
+        contact.first_name = form.first_name.data
+        contact.last_name = form.last_name.data
+        contact.text = form.text.data
         db.session.commit()
-        return ToDoSerializer(contact).data, 201
+        return ContactSerializer(contact).data, 201
 
 
 api.add_resource(UserView, '/api/v1/users')
