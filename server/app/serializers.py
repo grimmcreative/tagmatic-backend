@@ -16,3 +16,9 @@ class PostSerializer(Serializer):
 class ToDoSerializer(Serializer):
     class Meta:
         fields = ("id", "text", "is_complete", "created_at", "status")
+
+
+class ContactSerializer(Serializer):
+    class Meta:
+        fields = ("id", "first_name", "last_name", "text", "created_at")
+
