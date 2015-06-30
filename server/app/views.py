@@ -2,9 +2,9 @@ from flask import g
 from flask.ext import restful
 
 from app.server import api, db, flask_bcrypt, auth
-from app.models import User, Post, ToDo
-from app.forms import UserCreateForm, SessionCreateForm, PostCreateForm, ToDoCreateForm, ToDoCompleteForm
-from app.serializers import UserSerializer, PostSerializer, ToDoSerializer
+from app.models import User, Post, ToDo, Contact
+from app.forms import UserCreateForm, SessionCreateForm, PostCreateForm, ToDoCreateForm, ToDoCompleteForm, ContactCreateForm
+from app.serializers import UserSerializer, PostSerializer, ToDoSerializer, ContactSerializer
 
 
 @auth.verify_password
@@ -104,9 +104,33 @@ class ToDoView(restful.Resource):
         return ToDoSerializer(todo).data, 201
 
 
+class ContactListView(restful.Resource):
+    def get(self):
+        contacts = Contact.query.all()
+        return ContactSerializer(contacts, many=True).data
+
+    def post(self):
+        form = ContactCreateForm()
+        if not form.validate_on_submit():
+            return form.errors, 422
+        contact = Contact(form.text.data, form.first_name.data, form.last_name.data, form.is_selected.data)
+        db.session.add(contact)
+        db.session.commit()
+        return ContactSerializer(contact).data, 201
+
+    def delete(self):
+        toDelete = Contact.query.filter(Contact.is_selected == True).all()
+        for contact in toDelete:
+            db.session.delete(contact)
+        db.session.commit()
+        contacts = Contact.query.all()
+        return ContactSerializer(contacts, many=True).data, 201
+
+
 api.add_resource(UserView, '/api/v1/users')
 api.add_resource(SessionView, '/api/v1/sessions')
 api.add_resource(PostListView, '/api/v1/posts')
 api.add_resource(PostView, '/api/v1/posts/<int:id>')
 api.add_resource(ToDoListView, '/api/v1/todos')
 api.add_resource(ToDoView, '/api/v1/todos/<int:id>')
+api.add_resource(ContactListView, '/api/v1/contacts')

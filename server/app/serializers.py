@@ -20,5 +20,5 @@ class ToDoSerializer(Serializer):
 
 class ContactSerializer(Serializer):
     class Meta:
-        fields = ("id", "first_name", "last_name", "text", "created_at")
+        fields = ("id", "first_name", "last_name", "text", "created_at", "is_selected")
 
