@@ -44,3 +44,7 @@ class ToDoCompleteForm(Form):
 class ContactCreateForm(ModelForm):
     class Meta:
         model = Contact
+
+
+class ContactSelectForm(Form):
+    is_selected = BooleanField('is_selected')
