@@ -166,6 +166,28 @@ class ProjectListView(restful.Resource):
         db.session.commit()
         return ProjectSerializer(project).data, 201
 
+class ProjectView(restful.Resource):
+    def get(self, id):
+        projects = Project.query.filter_by(id=id).first()
+        return ProjectSerializer(projects).data
+
+    def put(self, id):
+        form = ProjectUpdateForm()
+        if not form.validate_on_submit():
+            return form.errors, 422
+        project = Project.query.filter_by(id=id).first()
+        project.description = form.description.data
+        project.user = form.user.data
+        project.user = User.query.filter_by(email=form.email.data).first()
+        db.session.commit()
+        return ProjectSerializer(project).data, 201
+
+    def delete(self, id):
+        project = Project.query.filter_by(id=id).first()
+        db.session.delete(project)
+        db.session.commit()
+        projects = Project.query.all()
+        return ProjectSerializer(projects, many=True).data
 
 api.add_resource(UserView, '/api/v1/users')
 api.add_resource(SessionView, '/api/v1/sessions')
@@ -176,3 +198,4 @@ api.add_resource(ToDoView, '/api/v1/todos/<int:id>')
 api.add_resource(ContactListView, '/api/v1/contacts')
 api.add_resource(ContactView, '/api/v1/contacts/<int:id>')
 api.add_resource(ProjectListView, '/api/v1/projects')
+api.add_resource(ProjectView, '/api/v1/projects/<int:id>')
