@@ -69,3 +69,17 @@ class Contact(db.Model):
     def __repr__(self):
         return '<ToDo %r>' % self.text
 
+
+class Project(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    description = db.Column(db.Text, nullable=True)
+    created_at = db.Column(db.DateTime, default=db.func.now())
+
+    def __init__(self, description):
+        self.description = description
+        self.user_id = g.user.id
+
+    def __repr__(self):
+        return '<Project %r>' % self.description
+
