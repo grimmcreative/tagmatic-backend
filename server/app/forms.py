@@ -5,7 +5,7 @@ from wtforms import StringField, BooleanField
 from wtforms.validators import DataRequired
 
 from app.server import db
-from app.models import User, Post, ToDo, Contact
+from app.models import User, Post, ToDo, Contact, Project
 
 BaseModelForm = model_form_factory(Form)
 
@@ -46,12 +46,17 @@ class ContactCreateForm(ModelForm):
         model = Contact
 
 
-class ContactSelectForm(Form):
-    is_selected = BooleanField('is_selected')
-
-
 class ContactUpdateForm(Form):
     first_name = StringField('first_name')
     last_name = StringField('last_name')
     text = StringField('text')
+
+
+class ProjectCreateForm(ModelForm):
+    class Meta:
+        model = Project
+
+
+class ProjectUpdateForm(Form):
+    description = StringField('description')
 
