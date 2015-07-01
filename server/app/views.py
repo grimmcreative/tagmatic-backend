@@ -2,9 +2,10 @@ from flask import g
 from flask.ext import restful
 
 from app.server import api, db, flask_bcrypt, auth
-from app.models import User, Post, ToDo, Contact
-from app.forms import UserCreateForm, SessionCreateForm, PostCreateForm, ToDoCreateForm, ToDoCompleteForm, ContactCreateForm, ContactSelectForm, ContactUpdateForm
-from app.serializers import UserSerializer, PostSerializer, ToDoSerializer, ContactSerializer
+from app.models import User, Post, ToDo, Contact, Project
+from app.forms import UserCreateForm, SessionCreateForm, PostCreateForm, ToDoCreateForm, ToDoCompleteForm, \
+    ContactCreateForm, ContactUpdateForm, ProjectCreateForm, ProjectUpdateForm
+from app.serializers import UserSerializer, PostSerializer, ToDoSerializer, ContactSerializer, ProjectSerializer
 
 
 @auth.verify_password
@@ -151,6 +152,21 @@ class ContactView(restful.Resource):
         return ContactSerializer(contacts, many=True).data
 
 
+class ProjectListView(restful.Resource):
+    def get(self):
+        projects = Project.query.all()
+        return ProjectSerializer(projects, many=True).data
+
+    def post(self):
+        form = ProjectCreateForm()
+        if not form.validate_on_submit():
+            return form.errors, 422
+        project = Project(form.description.data, form.user.data)
+        db.session.add(project)
+        db.session.commit()
+        return ProjectSerializer(project).data, 201
+
+
 api.add_resource(UserView, '/api/v1/users')
 api.add_resource(SessionView, '/api/v1/sessions')
 api.add_resource(PostListView, '/api/v1/posts')
@@ -159,3 +175,4 @@ api.add_resource(ToDoListView, '/api/v1/todos')
 api.add_resource(ToDoView, '/api/v1/todos/<int:id>')
 api.add_resource(ContactListView, '/api/v1/contacts')
 api.add_resource(ContactView, '/api/v1/contacts/<int:id>')
+api.add_resource(ProjectListView, '/api/v1/projects')
