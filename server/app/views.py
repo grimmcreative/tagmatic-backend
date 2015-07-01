@@ -143,6 +143,13 @@ class ContactView(restful.Resource):
         db.session.commit()
         return ContactSerializer(contact).data, 201
 
+    def delete(self, id):
+        contact = Contact.query.filter_by(id=id).first()
+        db.session.delete(contact)
+        db.session.commit()
+        contacts = Contact.query.all()
+        return ContactSerializer(contacts, many=True).data
+
 
 api.add_resource(UserView, '/api/v1/users')
 api.add_resource(SessionView, '/api/v1/sessions')
