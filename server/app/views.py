@@ -176,6 +176,7 @@ class ProjectView(restful.Resource):
         if not form.validate_on_submit():
             return form.errors, 422
         project = Project.query.filter_by(id=id).first()
+        project.name = form.name.data
         project.description = form.description.data
         project.user = form.user.data
         project.user = User.query.filter_by(email=form.email.data).first()
