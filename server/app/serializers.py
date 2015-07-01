@@ -22,3 +22,9 @@ class ContactSerializer(Serializer):
     class Meta:
         fields = ("id", "first_name", "last_name", "text", "created_at", "is_selected")
 
+
+class ProjectSerializer(Serializer):
+    class Meta:
+        fields = ("id", "description", "user", "created_at")
+
+
