@@ -58,5 +58,6 @@ class ProjectCreateForm(ModelForm):
 
 
 class ProjectUpdateForm(Form):
+    name = StringField('name')
     description = StringField('description')
 
