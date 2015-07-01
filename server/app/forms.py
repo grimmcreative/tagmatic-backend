@@ -1,7 +1,7 @@
 from flask.ext.wtf import Form
 
 from wtforms_alchemy import model_form_factory
-from wtforms import StringField, BooleanField
+from wtforms import StringField, BooleanField, IntegerField
 from wtforms.validators import DataRequired
 
 from app.server import db
@@ -53,8 +53,9 @@ class ContactUpdateForm(Form):
 
 
 class ProjectCreateForm(ModelForm):
-    class Meta:
-        model = Project
+    name = StringField('name')
+    description = StringField('description')
+    user_id = IntegerField('user_id')
 
 
 class ProjectUpdateForm(Form):

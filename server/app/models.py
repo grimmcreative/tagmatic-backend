@@ -72,7 +72,8 @@ class Contact(db.Model):
 
 class Project(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    user = db.relationship('Contact', backref='project')
+    user_id = db.Column(db.Integer, db.ForeignKey('contact.id'))
     name = db.Column(db.String(120), nullable=False)
     description = db.Column(db.Text, nullable=True)
     created_at = db.Column(db.DateTime, default=db.func.now())
@@ -80,7 +81,6 @@ class Project(db.Model):
     def __init__(self, name, description):
         self.name = name
         self.description = description
-        self.user_id = g.user.id
 
     def __repr__(self):
         return '<Project %r>' % self.name
