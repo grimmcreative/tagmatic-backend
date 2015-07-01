@@ -73,7 +73,7 @@ class Contact(db.Model):
 class Project(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user = db.relationship('Contact', backref='project')
-    user_id = db.Column(db.Integer, db.ForeignKey('contact.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('contact.id'), nullable=False)
     name = db.Column(db.String(120), nullable=False)
     description = db.Column(db.Text, nullable=True)
     created_at = db.Column(db.DateTime, default=db.func.now())

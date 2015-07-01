@@ -25,6 +25,6 @@ class ContactSerializer(Serializer):
 
 class ProjectSerializer(Serializer):
     class Meta:
-        fields = ("id", "name", "description", "user", "created_at")
+        fields = ("id", "name", "description", "user_id", "created_at")
 
 
