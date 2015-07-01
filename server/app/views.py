@@ -178,8 +178,7 @@ class ProjectView(restful.Resource):
         project = Project.query.filter_by(id=id).first()
         project.name = form.name.data
         project.description = form.description.data
-        project.user = form.user.data
-        project.user = User.query.filter_by(email=form.email.data).first()
+        project.user_id = form.user_id.data
         db.session.commit()
         return ProjectSerializer(project).data, 201
 
