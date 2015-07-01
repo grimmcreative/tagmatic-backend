@@ -78,9 +78,10 @@ class Project(db.Model):
     description = db.Column(db.Text, nullable=True)
     created_at = db.Column(db.DateTime, default=db.func.now())
 
-    def __init__(self, name, description):
+    def __init__(self, name, description, user_id):
         self.name = name
         self.description = description
+        self.user_id = user_id
 
     def __repr__(self):
         return '<Project %r>' % self.name

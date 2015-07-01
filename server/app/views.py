@@ -161,9 +161,7 @@ class ProjectListView(restful.Resource):
         form = ProjectCreateForm()
         if not form.validate_on_submit():
             return form.errors, 422
-        project = Project(form.name.data, form.description.data)
-        user = Contact.query.filter_by(id=form.user_id.data).first()
-        project.user = user
+        project = Project(form.name.data, form.description.data, form.user_id.data)
         db.session.add(project)
         db.session.commit()
         return ProjectSerializer(project).data, 201
