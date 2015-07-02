@@ -259,6 +259,13 @@ class TagView(restful.Resource):
         db.session.commit()
         return TagSerializer(tag).data, 201
 
+    def delete(self, id):
+        tag = Tag.query.filter_by(id=id).first()
+        db.session.delete(tag)
+        db.session.commit()
+        tags = Tag.query.all()
+        return TagSerializer(tags, many=True).data
+
 
 api.add_resource(UserView, '/api/v1/users')
 api.add_resource(SessionView, '/api/v1/sessions')
