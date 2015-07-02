@@ -86,3 +86,20 @@ class Project(db.Model):
     def __repr__(self):
         return '<Project %r>' % self.name
 
+
+class Issue(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    project = db.relationship('Project', backref='issue')
+    project_id = db.Column(db.Integer, db.ForeignKey('project.id'), nullable=False)
+    title = db.Column(db.String(120), nullable=False)
+    description = db.Column(db.Text, nullable=True)
+    created_at = db.Column(db.DateTime, default=db.func.now())
+
+    def __init__(self, title, description, project_id):
+        self.title = title
+        self.description = description
+        self.project_id = project_id
+
+    def __repr__(self):
+        return '<Project %r>' % self.title
+
