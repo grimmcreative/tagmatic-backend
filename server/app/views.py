@@ -189,6 +189,7 @@ class ProjectView(restful.Resource):
         projects = Project.query.all()
         return ProjectSerializer(projects, many=True).data
 
+
 class IssueListView(restful.Resource):
     def get(self):
         issues = Issue.query.all()
@@ -213,4 +214,4 @@ api.add_resource(ContactListView, '/api/v1/contacts')
 api.add_resource(ContactView, '/api/v1/contacts/<int:id>')
 api.add_resource(ProjectListView, '/api/v1/projects')
 api.add_resource(ProjectView, '/api/v1/projects/<int:id>')
-api.add_resource(ProjectListView, '/api/v1/issues')
+api.add_resource(IssueListView, '/api/v1/issues')
