@@ -63,3 +63,9 @@ class ProjectUpdateForm(Form):
     description = StringField('description')
     user_id = IntegerField('user_id')
 
+
+class IssueCreateForm(ModelForm):
+    title = StringField('title')
+    description = StringField('description')
+    project_id = IntegerField('project_id')
+
