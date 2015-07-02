@@ -210,6 +210,17 @@ class IssueView(restful.Resource):
         issues = Issue.query.filter_by(id=id).first()
         return IssueSerializer(issues).data
 
+    def put(self, id):
+        form = IssueCreateForm()
+        if not form.validate_on_submit():
+            return form.errors, 422
+        issue = Issue.query.filter_by(id=id).first()
+        issue.title = form.title.data
+        issue.description = form.description.data
+        issue.project_id = form.project_id.data
+        db.session.commit()
+        return IssueSerializer(issue).data, 201
+
 
 
 api.add_resource(UserView, '/api/v1/users')
