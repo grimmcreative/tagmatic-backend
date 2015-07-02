@@ -33,3 +33,7 @@ class IssueSerializer(Serializer):
         fields = ("id", "title", "description", "project_id", "created_at")
 
 
+class TagSerializer(Serializer):
+    class Meta:
+        fields = ("id", "name", "description")
+
