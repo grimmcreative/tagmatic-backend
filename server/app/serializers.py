@@ -28,3 +28,8 @@ class ProjectSerializer(Serializer):
         fields = ("id", "name", "description", "user_id", "created_at")
 
 
+class IssueSerializer(Serializer):
+    class Meta:
+        fields = ("id", "title", "description", "project_id", "created_at")
+
+
