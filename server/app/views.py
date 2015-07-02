@@ -280,3 +280,5 @@ api.add_resource(ProjectView, '/api/v1/projects/<int:id>')
 api.add_resource(IssueListView, '/api/v1/issues')
 api.add_resource(IssueView, '/api/v1/issues/<int:id>')
 api.add_resource(TagListView, '/api/v1/tags')
+api.add_resource(TagView, '/api/v1/tags/<int:id>')
+
