@@ -2,10 +2,10 @@ from flask import g
 from flask.ext import restful
 
 from app.server import api, db, flask_bcrypt, auth
-from app.models import User, Post, ToDo, Contact, Project
+from app.models import User, Post, ToDo, Contact, Project, Issue
 from app.forms import UserCreateForm, SessionCreateForm, PostCreateForm, ToDoCreateForm, ToDoCompleteForm, \
-    ContactCreateForm, ContactUpdateForm, ProjectCreateForm, ProjectUpdateForm
-from app.serializers import UserSerializer, PostSerializer, ToDoSerializer, ContactSerializer, ProjectSerializer
+    ContactCreateForm, ContactUpdateForm, ProjectCreateForm, ProjectUpdateForm, IssueCreateForm
+from app.serializers import UserSerializer, PostSerializer, ToDoSerializer, ContactSerializer, ProjectSerializer, IssueSerializer
 
 
 @auth.verify_password
@@ -188,6 +188,13 @@ class ProjectView(restful.Resource):
         db.session.commit()
         projects = Project.query.all()
         return ProjectSerializer(projects, many=True).data
+
+class IssueListView(restful.Resource):
+    def get(self):
+        issues = Issue.query.all()
+        return IssueSerializer(issues, many=True).data
+
+
 
 api.add_resource(UserView, '/api/v1/users')
 api.add_resource(SessionView, '/api/v1/sessions')
