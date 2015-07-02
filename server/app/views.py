@@ -249,6 +249,16 @@ class TagView(restful.Resource):
         tags = Tag.query.filter_by(id=id).first()
         return TagSerializer(tags).data
 
+    def put(self, id):
+        form = TagCreateForm()
+        if not form.validate_on_submit():
+            return form.errors, 422
+        tag = Tag.query.filter_by(id=id).first()
+        tag.name = form.name.data
+        tag.description = form.description.data
+        db.session.commit()
+        return TagSerializer(tag).data, 201
+
 
 api.add_resource(UserView, '/api/v1/users')
 api.add_resource(SessionView, '/api/v1/sessions')
