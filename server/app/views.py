@@ -194,7 +194,14 @@ class IssueListView(restful.Resource):
         issues = Issue.query.all()
         return IssueSerializer(issues, many=True).data
 
-
+    def post(self):
+        form = IssueCreateForm()
+        if not form.validate_on_submit():
+            return form.errors, 422
+        issue = Issue(form.title.data, form.description.data, form.project_id.data)
+        db.session.add(issue)
+        db.session.commit()
+        return IssueSerializer(issue).data, 201
 
 api.add_resource(UserView, '/api/v1/users')
 api.add_resource(SessionView, '/api/v1/sessions')
