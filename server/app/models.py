@@ -101,5 +101,18 @@ class Issue(db.Model):
         self.project_id = project_id
 
     def __repr__(self):
-        return '<Project %r>' % self.title
+        return '<Issue %r>' % self.title
+
+
+class Tag(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(120), nullable=False)
+    description = db.Column(db.Text, nullable=True)
+
+    def __init__(self, name, description):
+        self.name = name
+        self.description = description
+
+    def __repr__(self):
+        return '<Tag %r>' % self.name
 
