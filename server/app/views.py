@@ -221,7 +221,12 @@ class IssueView(restful.Resource):
         db.session.commit()
         return IssueSerializer(issue).data, 201
 
-
+    def delete(self, id):
+        issue = Issue.query.filter_by(id=id).first()
+        db.session.delete(issue)
+        db.session.commit()
+        issues = Issue.query.all()
+        return IssueSerializer(issues, many=True).data
 
 api.add_resource(UserView, '/api/v1/users')
 api.add_resource(SessionView, '/api/v1/sessions')
