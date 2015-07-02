@@ -5,7 +5,7 @@ from wtforms import StringField, BooleanField, IntegerField
 from wtforms.validators import DataRequired
 
 from app.server import db
-from app.models import User, Post, ToDo, Contact, Project
+from app.models import User, Post, ToDo, Contact, Project, Issue, Tag
 
 BaseModelForm = model_form_factory(Form)
 
@@ -69,3 +69,7 @@ class IssueCreateForm(ModelForm):
     description = StringField('description')
     project_id = IntegerField('project_id')
 
+
+class TagCreateForm(ModelForm):
+    class Meta:
+        model = Tag
