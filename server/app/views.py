@@ -309,6 +309,15 @@ class EffortListView(restful.Resource):
         efforts = Effort.query.all()
         return EffortSerializer(efforts, many=True).data
 
+    def post(self):
+        form = EffortCreateForm()
+        if not form.validate_on_submit():
+            return form.errors, 422
+        effort = Effort(form.name.data, form.description.data)
+        db.session.add(effort)
+        db.session.commit()
+        return EffortSerializer(effort).data, 201
+
 
 api.add_resource(UserView, '/api/v1/users')
 api.add_resource(SessionView, '/api/v1/sessions')
