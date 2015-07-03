@@ -132,3 +132,14 @@ class Milestone(db.Model):
     def __repr__(self):
         return '<Milestone %r>' % self.name
 
+class Effort(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(120), nullable=False)
+    description = db.Column(db.Text, nullable=True)
+
+    def __init__(self, name, description):
+        self.name = name
+        self.description = description
+
+    def __repr__(self):
+        return '<Effort %r>' % self.name
