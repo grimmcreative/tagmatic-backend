@@ -271,6 +271,18 @@ class MilestoneView(restful.Resource):
         milestones = Milestone.query.filter_by(id=id).first()
         return MilestoneSerializer(milestones).data
 
+    def put(self, id):
+        form = MilestoneCreateForm()
+        if not form.validate_on_submit():
+            return form.errors, 422
+        milestone = Milestone.query.filter_by(id=id).first()
+        milestone.name = form.name.data
+        milestone.description = form.description.data
+        milestone.due_date = form.due_date.data
+        milestone.stats = form.status.data
+        db.session.commit()
+        return MilestoneSerializer(milestone).data, 201
+
 class MilestoneListView(restful.Resource):
     def get(self):
         milestones = Milestone.query.all()
