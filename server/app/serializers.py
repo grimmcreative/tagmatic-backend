@@ -41,3 +41,7 @@ class MilestoneSerializer(Serializer):
     class Meta:
         fields = ("id", "name", "description", "due_date", "status")
 
+class EffortSerializer(Serializer):
+    class Meta:
+        fields = ("id", "name", "description")
+
