@@ -116,3 +116,19 @@ class Tag(db.Model):
     def __repr__(self):
         return '<Tag %r>' % self.name
 
+class Milestone(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(120), nullable=False)
+    description = db.Column(db.Text, nullable=True)
+    due_date = db.Column(db.DateTime, default=db.func.now())
+    status = db.Column(db.String(120), nullable=False, default='Active')
+
+    def __init__(self, name, description, due_date, status):
+        self.name = name
+        self.description = description
+        self.due_date = due_date
+        self.stats = status
+
+    def __repr__(self):
+        return '<Milestone %r>' % self.name
+
