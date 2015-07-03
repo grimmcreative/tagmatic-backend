@@ -333,6 +333,14 @@ class EffortView(restful.Resource):
         db.session.commit()
         return EffortSerializer(effort).data, 201
 
+    def delete(self, id):
+        effort = Effort.query.filter_by(id=id).first()
+        db.session.delete(effort)
+        db.session.commit()
+        efforts = Effort.query.all()
+        return TagSerializer(efforts, many=True).data
+
+
 api.add_resource(UserView, '/api/v1/users')
 api.add_resource(SessionView, '/api/v1/sessions')
 api.add_resource(PostListView, '/api/v1/posts')
