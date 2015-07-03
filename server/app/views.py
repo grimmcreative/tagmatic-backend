@@ -271,7 +271,10 @@ class MilestoneView(restful.Resource):
         milestones = Milestone.query.filter_by(id=id).first()
         return MilestoneSerializer(milestones).data
 
-
+class MilestoneListView(restful.Resource):
+    def get(self):
+        milestones = Milestone.query.all()
+        return MilestoneSerializer(milestones, many=True).data
 
 api.add_resource(UserView, '/api/v1/users')
 api.add_resource(SessionView, '/api/v1/sessions')
