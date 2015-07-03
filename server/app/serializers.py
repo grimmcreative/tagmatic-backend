@@ -37,3 +37,7 @@ class TagSerializer(Serializer):
     class Meta:
         fields = ("id", "name", "description")
 
+class MilestoneSerializer(Serializer):
+    class Meta:
+        fields = ("id", "name", "description", "due_date", "status")
+
