@@ -318,6 +318,12 @@ class EffortListView(restful.Resource):
         db.session.commit()
         return EffortSerializer(effort).data, 201
 
+class EffortView(restful.Resource):
+    def get(self, id):
+        efforts = Effort.query.filter_by(id=id).first()
+        return EffortSerializer(efforts).data
+
+
 
 api.add_resource(UserView, '/api/v1/users')
 api.add_resource(SessionView, '/api/v1/sessions')
