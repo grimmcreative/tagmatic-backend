@@ -358,4 +358,4 @@ api.add_resource(TagView, '/api/v1/tags/<int:id>')
 api.add_resource(MilestoneListView, '/api/v1/milestones')
 api.add_resource(MilestoneView, '/api/v1/milestones/<int:id>')
 api.add_resource(EffortListView, '/api/v1/efforts')
-
+api.add_resource(EffortView, '/api/v1/efforts/<int:id>')
