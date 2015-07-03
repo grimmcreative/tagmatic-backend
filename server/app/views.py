@@ -2,10 +2,10 @@ from flask import g
 from flask.ext import restful
 
 from app.server import api, db, flask_bcrypt, auth
-from app.models import User, Post, ToDo, Contact, Project, Issue, Tag
+from app.models import User, Post, ToDo, Contact, Project, Issue, Tag, Milestone
 from app.forms import UserCreateForm, SessionCreateForm, PostCreateForm, ToDoCreateForm, ToDoCompleteForm, \
-    ContactCreateForm, ContactUpdateForm, ProjectCreateForm, ProjectUpdateForm, IssueCreateForm, TagCreateForm
-from app.serializers import UserSerializer, PostSerializer, ToDoSerializer, ContactSerializer, ProjectSerializer, IssueSerializer, TagSerializer
+    ContactCreateForm, ContactUpdateForm, ProjectCreateForm, ProjectUpdateForm, IssueCreateForm, TagCreateForm, MilestoneCreateForm
+from app.serializers import UserSerializer, PostSerializer, ToDoSerializer, ContactSerializer, ProjectSerializer, IssueSerializer, TagSerializer, MilestoneSerializer
 
 
 @auth.verify_password
@@ -265,6 +265,12 @@ class TagView(restful.Resource):
         db.session.commit()
         tags = Tag.query.all()
         return TagSerializer(tags, many=True).data
+
+class MilestoneView(restful.Resource):
+    def get(self, id):
+        milestones = Milestone.query.filter_by(id=id).first()
+        return MilestoneSerializer(milestones).data
+
 
 
 api.add_resource(UserView, '/api/v1/users')
