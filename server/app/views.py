@@ -276,6 +276,15 @@ class MilestoneListView(restful.Resource):
         milestones = Milestone.query.all()
         return MilestoneSerializer(milestones, many=True).data
 
+    def post(self):
+        form = MilestoneCreateForm()
+        if not form.validate_on_submit():
+            return form.errors, 422
+        milestone = Milestone(form.name.data, form.description.data, form.due_date.data, form.status.data)
+        db.session.add(milestone)
+        db.session.commit()
+        return MilestoneSerializer(milestone).data, 201
+
 api.add_resource(UserView, '/api/v1/users')
 api.add_resource(SessionView, '/api/v1/sessions')
 api.add_resource(PostListView, '/api/v1/posts')
