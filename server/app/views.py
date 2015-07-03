@@ -331,7 +331,7 @@ class EffortView(restful.Resource):
         effort.name = form.name.data
         effort.description = form.description.data
         db.session.commit()
-        return EffortSerializer(tag).data, 201
+        return EffortSerializer(effort).data, 201
 
 api.add_resource(UserView, '/api/v1/users')
 api.add_resource(SessionView, '/api/v1/sessions')
