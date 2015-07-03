@@ -283,6 +283,13 @@ class MilestoneView(restful.Resource):
         db.session.commit()
         return MilestoneSerializer(milestone).data, 201
 
+    def delete(self, id):
+        milestone = Milestone.query.filter_by(id=id).first()
+        db.session.delete(milestone)
+        db.session.commit()
+        milestones = Milestone.query.all()
+        return MilestoneSerializer(milestones, many=True).data
+
 class MilestoneListView(restful.Resource):
     def get(self):
         milestones = Milestone.query.all()
