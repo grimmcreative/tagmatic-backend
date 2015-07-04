@@ -1,7 +1,7 @@
 from flask.ext.wtf import Form
 
 from wtforms_alchemy import model_form_factory
-from wtforms import StringField, BooleanField, IntegerField
+from wtforms import StringField, BooleanField, IntegerField, DateTimeField
 from wtforms.validators import DataRequired
 
 from app.server import db
@@ -75,9 +75,12 @@ class TagCreateForm(ModelForm):
         model = Tag
 
 class MilestoneCreateForm(ModelForm):
-    class Meta:
-        model = Milestone
+    name = StringField('name')
+    description = StringField('description')
+    due_date = DateTimeField('due_date', format='%Y-%m-%d %H:%M')
+    status = StringField('status')
 
 class EffortCreateForm(ModelForm):
     class Meta:
         model = Effort
+
