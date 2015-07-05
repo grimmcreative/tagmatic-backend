@@ -45,3 +45,7 @@ class EffortSerializer(Serializer):
     class Meta:
         fields = ("id", "name", "description")
 
+class ColumnSerializer(Serializer):
+    class Meta:
+        fields = ("id", "name", "description", "tasks")
+
