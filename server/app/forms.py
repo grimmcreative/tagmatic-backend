@@ -5,7 +5,7 @@ from wtforms import StringField, BooleanField, IntegerField, DateTimeField
 from wtforms.validators import DataRequired
 
 from app.server import db
-from app.models import User, Post, ToDo, Contact, Project, Issue, Tag, Milestone, Effort
+from app.models import User, Post, ToDo, Contact, Project, Issue, Tag, Milestone, Effort, Column
 
 BaseModelForm = model_form_factory(Form)
 
@@ -84,3 +84,7 @@ class EffortCreateForm(ModelForm):
     class Meta:
         model = Effort
 
+
+class ColumnCreateForm(ModelForm):
+    class Meta:
+        model = Column
