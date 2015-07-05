@@ -371,6 +371,13 @@ class ColumnView(restful.Resource):
         db.session.commit()
         return ColumnSerializer(column).data, 201
 
+    def delete(self, id):
+        column = Column.query.filter_by(id=id).first()
+        db.session.delete(column)
+        db.session.commit()
+        columns = Column.query.all()
+        return ColumnSerializer(columns, many=True).data
+
 api.add_resource(UserView, '/api/v1/users')
 api.add_resource(SessionView, '/api/v1/sessions')
 api.add_resource(PostListView, '/api/v1/posts')
