@@ -346,6 +346,16 @@ class ColumnListView(restful.Resource):
         columns = Column.query.all()
         return ColumnSerializer(columns, many=True).data
 
+    def put(self, id):
+        form = ColumnCreateForm()
+        if not form.validate_on_submit():
+            return form.errors, 422
+        column = Column.query.filter_by(id=id).first()
+        column.name = form.name.data
+        column.description = form.description.data
+        column.tasks = form.tasks.data
+        db.session.commit()
+        return ColumnSerializer(column).data, 201
 
 api.add_resource(UserView, '/api/v1/users')
 api.add_resource(SessionView, '/api/v1/sessions')
