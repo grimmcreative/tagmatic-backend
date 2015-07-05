@@ -92,14 +92,16 @@ class Issue(db.Model):
     project = db.relationship('Project', backref='issue')
     project_id = db.Column(db.Integer, db.ForeignKey('project.id'), nullable=False)
     column_id = db.Column(db.Integer, db.ForeignKey('column.id'), nullable=False, default=1)
+    column = db.relationship('Column', backref='tasks')
     title = db.Column(db.String(120), nullable=False)
     description = db.Column(db.Text, nullable=True)
     created_at = db.Column(db.DateTime, default=db.func.now())
 
-    def __init__(self, title, description, project_id):
+    def __init__(self, title, description, project_id, column_id):
         self.title = title
         self.description = description
         self.project_id = project_id
+        self.column_id = column_id
 
     def __repr__(self):
         return '<Issue %r>' % self.title
@@ -147,7 +149,6 @@ class Effort(db.Model):
 
 class Column(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    tasks = db.relationship('Issue', backref='column')
     name = db.Column(db.String(120), nullable=False)
     description = db.Column(db.Text, nullable=True)
     created_at = db.Column(db.DateTime, default=db.func.now())

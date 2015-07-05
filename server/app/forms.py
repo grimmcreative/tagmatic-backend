@@ -68,6 +68,7 @@ class IssueCreateForm(ModelForm):
     title = StringField('title')
     description = StringField('description')
     project_id = IntegerField('project_id')
+    column_id = IntegerField('column_id')
 
 
 class TagCreateForm(ModelForm):
