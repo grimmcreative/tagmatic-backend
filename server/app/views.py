@@ -2,11 +2,12 @@ from flask import g
 from flask.ext import restful
 
 from app.server import api, db, flask_bcrypt, auth
-from app.models import User, Post, ToDo, Contact, Project, Issue, Tag, Milestone, Effort
+from app.models import User, Post, ToDo, Contact, Project, Issue, Tag, Milestone, Effort, Column
 from app.forms import UserCreateForm, SessionCreateForm, PostCreateForm, ToDoCreateForm, ToDoCompleteForm, \
-    ContactCreateForm, ContactUpdateForm, ProjectCreateForm, ProjectUpdateForm, IssueCreateForm, TagCreateForm, MilestoneCreateForm, EffortCreateForm
-from app.serializers import UserSerializer, PostSerializer, ToDoSerializer, ContactSerializer, ProjectSerializer, IssueSerializer, TagSerializer, MilestoneSerializer, EffortSerializer
-import datetime
+    ContactCreateForm, ContactUpdateForm, ProjectCreateForm, ProjectUpdateForm, IssueCreateForm, TagCreateForm, MilestoneCreateForm, EffortCreateForm, ColumnCreateForm
+from app.serializers import UserSerializer, PostSerializer, ToDoSerializer, ContactSerializer, ProjectSerializer, IssueSerializer, \
+    TagSerializer, MilestoneSerializer, EffortSerializer, ColumnSerializer
+
 
 @auth.verify_password
 def verify_password(email, password):
@@ -339,6 +340,11 @@ class EffortView(restful.Resource):
         db.session.commit()
         efforts = Effort.query.all()
         return TagSerializer(efforts, many=True).data
+
+class ColumnListView(restful.Resource):
+    def get(self):
+        columns = Column.query.all()
+        return ColumnSerializer(columns, many=True).data
 
 
 api.add_resource(UserView, '/api/v1/users')
