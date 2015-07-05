@@ -350,7 +350,7 @@ class ColumnListView(restful.Resource):
         form = ColumnCreateForm()
         if not form.validate_on_submit():
             return form.errors, 422
-        column = Column(form.name.data, form.description.data, form.tasks.data)
+        column = Column(form.name.data, form.description.data)
         db.session.add(column)
         db.session.commit()
         return ColumnSerializer(column).data, 201

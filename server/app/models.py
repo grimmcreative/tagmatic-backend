@@ -152,10 +152,9 @@ class Column(db.Model):
     description = db.Column(db.Text, nullable=True)
     created_at = db.Column(db.DateTime, default=db.func.now())
 
-    def __init__(self, name, description, tasks):
+    def __init__(self, name, description):
         self.name = name
         self.description = description
-        self.tasks = tasks
 
     def __repr__(self):
         return '<Column %r>' % self.name
