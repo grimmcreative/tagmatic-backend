@@ -47,7 +47,7 @@ class EffortSerializer(Serializer):
 
 class ColumnSerializer(Serializer):
 
-    tasks = fields.Nested(IssueSerializer, only='column_id', many=True)
+    tasks = fields.Nested(IssueSerializer, many=True)
 
     class Meta:
         fields = ("id", "name", "description", "tasks")
