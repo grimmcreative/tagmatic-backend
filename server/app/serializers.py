@@ -30,23 +30,27 @@ class ProjectSerializer(Serializer):
 
 class IssueSerializer(Serializer):
     class Meta:
-        fields = ("id", "title", "description", "project_id", "created_at", "column_id")
+        fields = (
+            "id", "title", "description", "project_id", "created_at", "column_id", "tag_id", "milestone_id", "effort_id",
+            "assigned_to_id")
 
 
 class TagSerializer(Serializer):
     class Meta:
         fields = ("id", "name", "description")
 
+
 class MilestoneSerializer(Serializer):
     class Meta:
         fields = ("id", "name", "description", "due_date", "status")
+
 
 class EffortSerializer(Serializer):
     class Meta:
         fields = ("id", "name", "description")
 
-class ColumnSerializer(Serializer):
 
+class ColumnSerializer(Serializer):
     tasks = fields.Nested(IssueSerializer, many=True)
 
     class Meta:
