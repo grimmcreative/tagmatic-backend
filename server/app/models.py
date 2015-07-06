@@ -105,11 +105,15 @@ class Issue(db.Model):
     description = db.Column(db.Text, nullable=True)
     created_at = db.Column(db.DateTime, default=db.func.now())
 
-    def __init__(self, title, description, project_id, column_id):
+    def __init__(self, title, description, project_id, column_id, tag_id, milestone_id, effort_id, assigned_to_id):
         self.title = title
         self.description = description
         self.project_id = project_id
         self.column_id = column_id
+        self.tag_id = tag_id
+        self.milestone_id = milestone_id
+        self.effort_id = effort_id
+        self.assigned_to_id = assigned_to_id
 
     def __repr__(self):
         return '<Issue %r>' % self.title

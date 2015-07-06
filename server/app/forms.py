@@ -69,7 +69,10 @@ class IssueCreateForm(ModelForm):
     description = StringField('description')
     project_id = IntegerField('project_id')
     column_id = IntegerField('column_id')
-
+    tag_id = IntegerField('tag_id')
+    milestone_id = IntegerField('milestone_id')
+    effort_id = IntegerField('effort_id')
+    assigned_to_id = IntegerField('assigned_to_id')
 
 class TagCreateForm(ModelForm):
     class Meta:
