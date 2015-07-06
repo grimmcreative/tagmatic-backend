@@ -37,7 +37,7 @@ class IssueSerializer(Serializer):
 
 class TagSerializer(Serializer):
     class Meta:
-        fields = ("id", "name", "description")
+        fields = ("id", "name", "description", "color")
 
 
 class MilestoneSerializer(Serializer):

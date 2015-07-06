@@ -245,7 +245,7 @@ class TagListView(restful.Resource):
         form = TagCreateForm()
         if not form.validate_on_submit():
             return form.errors, 422
-        tag = Tag(form.name.data, form.description.data)
+        tag = Tag(form.name.data, form.description.data, form.color.data)
         db.session.add(tag)
         db.session.commit()
         return TagSerializer(tag).data, 201
@@ -263,6 +263,7 @@ class TagView(restful.Resource):
         tag = Tag.query.filter_by(id=id).first()
         tag.name = form.name.data
         tag.description = form.description.data
+        tag.color = form.color.data
         db.session.commit()
         return TagSerializer(tag).data, 201
 
