@@ -200,7 +200,8 @@ class IssueListView(restful.Resource):
         form = IssueCreateForm()
         if not form.validate_on_submit():
             return form.errors, 422
-        issue = Issue(form.title.data, form.description.data, form.project_id.data, form.column_id.data)
+        issue = Issue(form.title.data, form.description.data, form.project_id.data, form.column_id.data,
+                      form.tag_id.data, form.milestone_id.data, form.effort_id.data, form.assigned_to_id.data)
         db.session.add(issue)
         db.session.commit()
         return IssueSerializer(issue).data, 201
@@ -220,6 +221,10 @@ class IssueView(restful.Resource):
         issue.description = form.description.data
         issue.project_id = form.project_id.data
         issue.column_id = form.column_id.data
+        issue.tag_id = form.tag_id.data
+        issue.milestone_id = form.milestone_id.data
+        issue.effort_id = form.effort_id.data
+        issue.assigned_to_id = form.assigned_to_id.data
         db.session.commit()
         return IssueSerializer(issue).data, 201
 
