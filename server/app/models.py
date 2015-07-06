@@ -123,10 +123,12 @@ class Tag(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), nullable=False)
     description = db.Column(db.Text, nullable=True)
+    color = db.Column(db.String(32), nullable=False, default="ffffff")
 
-    def __init__(self, name, description):
+    def __init__(self, name, description, color):
         self.name = name
         self.description = description
+        self.color = color
 
     def __repr__(self):
         return '<Tag %r>' % self.name
