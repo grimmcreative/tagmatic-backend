@@ -55,7 +55,7 @@ class Contact(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(120), nullable=False)
     last_name = db.Column(db.String(120), nullable=False)
-    text = db.Column(db.Text, nullable=False)
+    text = db.Column(db.Text, nullable=True)
     icon_url = db.Column(db.String(120), nullable=True)
     is_selected = db.Column(db.Boolean, nullable=False, default=False)
     created_at = db.Column(db.DateTime, default=db.func.now())
